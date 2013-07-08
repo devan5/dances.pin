@@ -1,63 +1,44 @@
 ﻿/**
+ * @fileoverview
+ * @author devan5 <devan5.pan@gmail.com>
+ * @version 1.0_dev
+ * @Date 2013.07.08
  *
+ * @example <caption>simple</caption>
+ * $(".box-hdr").pin();
+ *
+ * @example <caption>full</caption>
+ * $(".box-hdr").pin({
+ *     watcher: "selectors",
+ *     eInit: function($piner){
+ *         初始化的回调, 此时 wrapper 已经创建好, 第一个实参 , 可根据需求使用
+ *     },
+ *
+ *     eIn: function(){
+ *         进入监视事件
+ *     },
+ *
+ *     eOut: function(){
+ *         移出监视的事件
+ *     },
+ *
+ *     eOutRange: function(){
+ *         @TODO 移出监视范围事件
+ *     },
+ *
+ *     eCal: function(nLeft, nTop){
+ *         不常用, 计算 元素 坐标值事件, 可干涉其结果
+ *         @return {Object} offset
+ *         @type {Number} offset.left
+ *         @type {Number} offset.top
+ *     },
+ *
+ * });
  */
 
-/*~~~~~~~~
-with dances.plugins
-
-	called: pin
-
-	version: 1.0
-
-	firstDate: 2013.04.18
-
-	lastDate: 2013.04.18
-
-	require: [
-		"jQuery"
-	],
-
-	effect: [
-		+. {effects},
-		+. {effects}
-	],
-
-	log: {
-		"v1.0": [
-			+. {logs},
-			+. {logs}
-		]
-	}
-
-~~~~~~~~*/
-
-/*_______
-syntax:
-
-	$("selectors").pin(conf);
-
-	conf = {
-		// 进入范围
-		onIn: function(){},
-
-		// 移出范围 inCallback 反方向
-		onOut: function(){},
-
-		// 移出设定另一端范围(可选)
-		eOutRange: function(){},
-
-		// 当计算的时候
-		onCal: function(){},
-
-		// 水平最大距离(可选)
-		levelRange: "",
-
-		// 垂直最大距离(可选)
-		levelRange: ""
-
-	};
-_______*/
-
+/**
+ * @throws jQuery is not ready
+ */
 (function($){
 	"use strict";
 
@@ -93,6 +74,13 @@ _______*/
 		throw "jquery.dances.pin expect jQuery Library";
 	}
 
+	/**
+	 *
+	 * @name Throttle
+	 * @param {Function} fn
+	 * @param {Number} time
+	 * @returns {Function}
+	 */
 	throttle = function(fn, time){
 		var promise;
 		time = "number" === typeof time ? time : 50;
@@ -133,13 +121,9 @@ _______*/
 		fInit = null;
 	};
 
-	/**
-	 *
-	 * @param conf {Object}
-	 */
 	$.prototype.pin = function(conf){
 
-		conf = $.extend({
+		conf = $.extend(/** @lends jQuery.prototype */{
 			watcher  : "",
 
 			// 进入监视
@@ -148,7 +132,7 @@ _______*/
 			eIn      : placeFn,
 			// 移出(最小)监视
 			eOut     : placeFn,
-			// 溢出(最大)监视范围, 可选
+			// 移出(最大)监视范围, 可选
 			eOutRange: placeFn,
 			// 每一次触发计算回调接口
 			eCal     : placeFn
@@ -226,11 +210,14 @@ _______*/
 		top = offset.top;
 		left = offset.left;
 
+		if(this.fOnCal){
+			offset = this.fOnCal(top, left) || {};
+			top = "number" === typeof offset.top ? offset.top : top;
+			left = "number" === typeof offset.left ? offset.left : left;
+		}
+
 		this.nTop = top;
 		this.nLeft = left;
-
-		this.fOnCal && this.fOnCal(top, left);
-
 	}
 
 	function onScroll(top, left){
@@ -251,7 +238,7 @@ _______*/
 			"function" === typeof this.fOutThere && this.fOutThere();
 
 		}else{
-			// TODO outOfRange
+			// @TODO outOfRange
 		}
 
 	}
