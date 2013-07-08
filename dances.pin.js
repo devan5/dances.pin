@@ -167,7 +167,9 @@ if ("function" !== typeof window.dances &&  "object" !== typeof window.dances){
 
 			},
 
-		pinPromise
+		pinPromise,
+
+		emptyFn = function(){}
 
 	;
 
@@ -239,19 +241,17 @@ if ("function" !== typeof window.dances &&  "object" !== typeof window.dances){
 
 			if("[object Object]" !== Object.prototype.toString.call(conf)){
 				args.push(conf);
-				conf = undefined;
+				conf = {};
 			}
 
-			if(conf){
-				// inCallback
-				// outCallback
+			// inCallback
+			// outCallback
 
-				this.fInThere = "function" === typeof conf.onIn && conf.onIn;
-				this.fOutThere = "function" === typeof conf.onOut && conf.onOut;
-				this.fRangThere = "function" === typeof conf.onOutRange && conf.onOutRange;
-				this.fOnCal = "function" === typeof conf.onCal && conf.onCal;
+			this.fInThere = "function" === typeof conf.onIn && conf.onIn || emptyFn;
+			this.fOutThere = "function" === typeof conf.onOut && conf.onOut || emptyFn;
+			this.fRangThere = "function" === typeof conf.onOutRange && conf.onOutRange || emptyFn;
+			this.fOnCal = "function" === typeof conf.onCal && conf.onCal || emptyFn;
 
-			}
 
 			this.fInThere = "function" === typeof args[0] ?
 				args.shift() :
@@ -332,7 +332,7 @@ if ("function" !== typeof window.dances &&  "object" !== typeof window.dances){
 				"function" === typeof this.fOutThere && this.fOutThere();
 
 			}else{
-
+				// TODO
 			}
 
 		},
