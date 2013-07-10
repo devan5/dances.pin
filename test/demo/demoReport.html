@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<!--[if lt IE 7 ]><html lang="zh-CN" class="IE8- IE7- IE6"><![endif]-->
+<!--[if IE 7 ]><html lang="zh-CN" class="IE8- IE7- IE7"><![endif]-->
+<!--[if IE 8 ]><html lang="zh-CN" class="IE8- IE8"><![endif]-->
+<!--[if (gt IE 8)|!(IE)]><!-->
+<html lang="zh-CN"><!--<![endif]-->
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta charset="UTF-8">
+    <title>Overview Report</title>
+
+    <!--[if lt IE 9]>
+    <script src="lib/html5shiv.js"></script> <![endif]-->
+    <link href="lib/style.css" rel="stylesheet" type="text/css">
+
+    <link href="lib/product.css" rel="stylesheet" type="text/css">
+    <style type="text/css">
+        .main {
+            height: 1500px;
+        }
+    </style>
+
+    <script src="lib/jquery-1.7.2.min.js" charset="UTF-8"></script>
+
+    <script type="text/javascript">
+        function dynWrite(str, num){
+            document.write(new Array((isNaN(parseInt(num, 10)) ? 0 : num) + 1).join(str));
+        }
+    </script>
+</head>
+<body class="None">
+    <div id="wrap" class="cf">
+
+        <header id="header" class="header cf">
+            <div class="toSite"><a href="#" title="View site">Hopscotch</a></div>
+            <div class="toOthers">
+                Welcome:developer.nstechs! <a href="#"
+                                              title="Change Password">Change Password</a><i class="I">|</i><a href="http://www.hs.com/report/logout">Log out</a>
+            </div>
+            <ul class="nav" id="nav">
+                <li class=""><a href="https://www.hs.com/security/platform/Security">Nstechs Security</a></li>
+                <li class=""><a href="https://www.hs.com/intranet/platform/Intranet"> Hopscotch Intranet</a></li>
+                <li class="on"><a href="https://www.hs.com/report/platform/Report"> Hopscotch Report</a></li>
+            </ul>
+        </header>
+        <div class="msgBox appMsg">
+            <div id="msgBox" class="success"></div>
+        </div>
+
+
+        <div id="sidebar" class="sidebar">
+            <ul class="menu" id="menu">
+                <li class="current"><a href="#">Report</a>
+                    <ul>
+                        <li class="current">
+                            <a href="http://www.hs.com/report/overview/report?screen-id=c229d40d-3660-1031-9969-5d9bf3edcb32">Overview</a></li>
+                        <li><a href="http://www.hs.com/report/inventory/report?screen-id=c229fd04-3660-1031-9969-5d9bf3edcb32">Inventory</a></li>
+                        <li><a href="http://www.hs.com/report/purchase/report?screen-id=c22a26bf-3660-1031-9969-5d9bf3edcb32">PO &amp; invoice</a>
+                        </li>
+                        <li><a href="http://www.hs.com/report/accounting/report?screen-id=c22a5ff6-3660-1031-9969-5d9bf3edcb32">Accounting</a></li>
+                        <li><a href="http://www.hs.com/report/cohort/report?screen-id=c22a8ce0-3660-1031-9969-5d9bf3edcb32">Cohort</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+        <div id="main" class="main">
+
+
+            <div class="content" id="content" data-nav="nav_report">
+                <h1>Report - overview</h1>
+                <div class="manage">
+
+
+                    <form class="filter" novalidate="novalidate" method="post" id="getFullReport" action="/report/overview/report">
+                        <label for="reportType">By</label> <select id="reportType" name="reportType">
+                        <option selected="selected" checked="" value="D">Day</option>
+                        <option value="H">Hour</option>
+                        <option value="W">Week</option>
+                        <option value="M">Month</option>
+                        <option value="Q">Quarter</option>
+                        <option value="Y">Year</option>
+                    </select> <label for="fromDate">From:</label> <span class="dateInput"><span class="dateInput"><input required=""
+                                                                                                                         data-to="today"
+                                                                                                                         class="dateinput normal"
+                                                                                                                         name="fromDate"
+                                                                                                                         id="fromDate"
+                                                                                                                         type="text"></span></span>
+                        <label for="toDate">To:</label> <span class="dateInput"><span class="dateInput"><input required=""
+                                                                                                               data-to="today"
+                                                                                                               data-from="#fromDate"
+                                                                                                               class="dateinput normal"
+                                                                                                               name="toDate"
+                                                                                                               id="toDate"
+                                                                                                               type="text"></span></span>
+                        <input value="Search" type="submit">
+                    </form>
+
+                    <table class="reportList">
+                        <thead>
+                        <tr>
+                            <th>Time Period</th>
+                            <th>New Registrants</th>
+                            <th>New Buyers</th>
+                            <th>Orders</th>
+                            <th>Orders (new buyers)</th>
+                            <th>Orders (repeat buyers)</th>
+                            <th>Total Sales</th>
+                            <th>Units sold</th>
+                            <th>Units per Order</th>
+                        </tr>
+                        </thead>
+                        <tbody id="reportList">
+                        <script type="text/javascript">
+                            dynWrite(
+                                '<tr> <td class="tdTimeStep">2013-05-01</td> <td>0</td> <td>0</td> <td>0</td> <td>0</td> <td>0</td> <td>0.0</td> <td>0.0</td> <td>0.0</td> </tr>'
+                                ,
+                                15
+                            );
+                        </script>
+                        <tr>
+                            <td class="tdTimeStep">2013-05-01</td>
+                            <td>0</td>
+                            <td>0</td>
+                            <td>0</td>
+                            <td>0</td>
+                            <td>0</td>
+                            <td>0.0</td>
+                            <td>0.0</td>
+                            <td>0.0</td>
+                        </tr>
+                        </tbody>
+                    </table>
+
+                </div>
+            </div>
+
+
+            <div class="cl"></div>
+        </div>
+        <!-- #main END -->
+        <div class="push"></div>
+    </div>
+    <footer>
+        <p>HopScotch © All Rights Received</p>
+    </footer>
+
+    <!--<script type="text/javascript" src="../../dances.pin.js"></script>-->
+    <script type="text/javascript" src="../../jquery.dances.pin.js"></script>
+    <script type="text/javascript">
+        (function(){
+            return;
+            var
+                $piner,
+                fInit,
+                $manage,
+                $hdr,
+                $con,
+
+                nPt
+                ;
+
+            fInit = function(){
+                $manage = $(".manage");
+                $hdr = $("#getFullReport");
+                $con = $(".reportList").clone();
+                $con.find("tbody").remove();
+                nPt = $hdr.outerHeight(true);
+
+                $piner = $("<div></div>").css({
+                    position: "fixed",
+                    left    : $manage.offset().left,
+                    top     : 0
+                }).hide().appendTo("body");
+
+                $con.appendTo($piner);
+
+                fSyncWidth();
+
+                fInit = null;
+            };
+
+            function fSyncWidth(){
+                if($piner){
+                    $piner.width($manage.width());
+                }
+            }
+
+            $(window).bind("resize.report", (function(){
+                var promise;
+                return function(){
+                    clearTimeout(promise);
+                    promise = setTimeout(fSyncWidth, 40);
+                }
+            })());
+
+            dances.pin(".manage", function(){
+                fInit && fInit();
+                $manage.css("paddingTop", nPt);
+                $hdr.prependTo($piner);
+                $piner.show();
+
+            }, function(){
+                $hdr.prependTo($manage);
+                $manage.css("paddingTop", 0);
+                $piner.hide();
+            });
+
+        })();
+
+        (function(){
+            $("#getFullReport").pin({
+                eInit     : function($piner){
+                    var $con;
+                    $con = $(".reportList");
+                    $con.find("script").remove();
+                    $con = $con.clone();
+                    $con.find("tbody").remove();
+                    $con.appendTo($piner);
+                },
+                levelRange: true
+            });
+        })();
+    </script>
+</body>
+</html>

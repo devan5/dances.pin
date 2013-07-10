@@ -48,7 +48,7 @@ syntax:
 		levelRange: "",
 
 		// 垂直最大距离(可选)
-		levelRange: ""
+		verticalRange: ""
 
 	};
 _______*/
